@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 
 @Data
 @AllArgsConstructor
@@ -14,27 +12,12 @@ public class HistoricoGlicemia {
 
     private Long id;
 
-    private Integer glicemia; //como podemos pegar o resultado a conta da refeição se for feita no front, ou ela tem que ser feita no java.
-
-
-
+    private Integer valorDestro; //ja vamos pegar no front o valor colocado pra fazer o grafico
 
     private Paciente paciente;
 
-    private Date diaMedicao;
-
-    private Date horarioMedicao;
-
-    private Boolean jejum;
-
-
     /* METODOS
-    *
-    *
-    *
-    *
+    *PERSISTE (POST)
     * */
-
-    //ONDE PEGAR ESSAS INFORMAÇÕES? FORMULARIO?
 
 }

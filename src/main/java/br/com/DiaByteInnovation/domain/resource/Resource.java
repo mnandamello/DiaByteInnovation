@@ -1,4 +1,12 @@
 package br.com.DiaByteInnovation.domain.resource;
 
-public interface Resource {
+import jakarta.ws.rs.core.Response;
+
+public interface Resource<T, U> {
+
+    public Response findAll();
+
+    public Response findById(U id);
+
+    public Response persiste(T t);
 }

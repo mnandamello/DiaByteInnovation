@@ -16,12 +16,9 @@ public class Usuario  {
 
     private String senha;
 
-    private Paciente paciente; //como que vamos chamar o paciente aqui sendo que só vamos pegar o paciente depois que fizermos o login e o cadastro?
-
     /* METODOS
-    * CREATE (POST)
-    * FindByEmail (GET)
-    * FindBySenha (GET)
+    * persiste (POST) - OK
+    * findById - OK
     * */
 
 }

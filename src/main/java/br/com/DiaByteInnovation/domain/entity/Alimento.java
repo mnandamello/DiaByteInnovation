@@ -13,6 +13,8 @@ public class Alimento {
 
     private String nome;
 
+    private float quantCarboGrama;
+
     /* METODOS
      * FindAll (GET)
      * */

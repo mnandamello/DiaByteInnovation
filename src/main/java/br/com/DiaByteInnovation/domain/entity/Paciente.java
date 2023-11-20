@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -14,29 +15,22 @@ public class Paciente {
 
     private Long id;
 
-    private String nome;
+    private String nomeCompleto;
 
-    private String sobrenome;
+    private LocalDate dtNascimento;
 
-    private Date dtNascimento;
+    private float relacaoInsulina;
 
-    private Integer relacaoInsulina;
+    private Integer valorMaxGlicemia;
 
-    private Integer maxGlicemia;
+    private Integer valorMinGlicemia;
 
-    private Integer minGlicemia;
+    private Usuario usuario; //fazer findById
 
-    private Integer valorCorrecao;
-
-    private Integer quantiDose;
 
     /* METODOS
-    * CREATE (POST)
-    * FindByRelação (GET)
-    * FindByMax (GET)
-    * FindByMin (GET)
-    * findByValorCorrecao (GET)
-    * finByQauntiDose
+    * persiste (POST)
+    * findById (GET)
     * */
 
 }
