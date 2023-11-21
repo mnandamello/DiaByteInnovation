@@ -84,7 +84,8 @@ public class UsuarioRepository implements Repository<Usuario, Long>{
 
     @Override
     public Usuario persiste(Usuario us) {
-        var sql = "INSERT INTO tb_pessoa_fisica  (id_usuario, email, senha) VALUES (seq_usuario.nextval,?, ? )";
+        System.out.println("entrou 1");
+        var sql = "INSERT INTO tb_usuario  (id_usuario, email, senha) VALUES (seq_usuario.nextval,?, ? )";
 
 
         Connection con = factory.getConnection();

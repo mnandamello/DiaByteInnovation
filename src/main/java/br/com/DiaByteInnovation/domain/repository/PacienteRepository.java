@@ -42,13 +42,13 @@ public class PacienteRepository implements Repository<Paciente, Long>{
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
                     long id = rs.getLong( "id_paciente " );
-                    String nomeCompleto = rs.getString( "senha" );
+                    String nomeCompleto = rs.getString( "nm_completo" );
                     LocalDate dtNascimento = rs.getDate( "dt_nascimento" ).toLocalDate();
-                    float relacaoInsulina = rs.getFloat( "email" );
-                    Integer valorMaxGlicemia = rs.getInt( "senha" );
-                    Integer valorMinGlicemia = rs.getInt( "senha" );
-                    long id_usuario = rs.getLong("id_usuario");
+                    float relacaoInsulina = rs.getFloat( "relacao_insulina_carboidrato" );
+                    Integer valorMaxGlicemia = rs.getInt( "max_glicemia" );
+                    Integer valorMinGlicemia = rs.getInt( "min_glicemia" );
                     Usuario usuario = null;
+                    long id_usuario = rs.getLong("id_usuario");
                     usuario = usuarioService.findById(id_usuario);
 
                     list.add( new Paciente( id, nomeCompleto,dtNascimento, relacaoInsulina,  valorMaxGlicemia, valorMinGlicemia, usuario) );
@@ -84,7 +84,7 @@ public class PacienteRepository implements Repository<Paciente, Long>{
                     float relacaoInsulina = rs.getFloat( "relacao_insulina_carboidrato" );
                     Integer valorMaxGlicemia = rs.getInt("max_glicemia ");
                     Integer valorMinGlicemia = rs.getInt("min_glicemia");
-                    long id_usuario = rs.getLong("id_usuario");
+                    long id_usuario = rs.getLong("id_usuario"); //ta retornando nulo
                     Usuario usuario = null;
 
 
@@ -121,7 +121,7 @@ public class PacienteRepository implements Repository<Paciente, Long>{
             ps.setFloat(3, pc.getRelacaoInsulina());
             ps.setInt(4, pc.getValorMaxGlicemia());
             ps.setFloat(5, pc.getValorMinGlicemia());
-            ps.setLong(6, pc.getUsuario().getId());
+            ps.setLong(6, pc.getUsuario().getId()); //ta retornando nulo
 
 
             ps.executeUpdate();

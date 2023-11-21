@@ -49,9 +49,7 @@ public class RefeicaoRepository implements Repository<Refeicao, Long>{
                     float totalCarboidrato = rs.getFloat( "qt_total_carbo" );
                     Integer quantidadeInsulina = rs.getInt( "qt_total_insulina" );
                     long id_paciente = rs.getLong("id_paciente");
-
-                    Paciente paciente = null;
-                    paciente = pacienteService.findById(id_paciente);
+                    Paciente paciente = pacienteService.findById(id_paciente);
 
                     list.add( new Refeicao( id ,totalCarboidrato, quantidadeInsulina, paciente) );
                 }
@@ -138,7 +136,7 @@ public class RefeicaoRepository implements Repository<Refeicao, Long>{
     }
 
 
-   /* public List<Refeicao> findRefeicoesByPaciente(Long idPaciente) {
+   /*public List<Refeicao> findRefeicoesByPaciente(Long idPaciente) {
         List<Refeicao> refeicoes = new ArrayList<>();
         Connection con = factory.getConnection();
         PreparedStatement ps = null;

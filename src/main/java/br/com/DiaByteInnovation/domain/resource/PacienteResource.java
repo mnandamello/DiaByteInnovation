@@ -1,9 +1,7 @@
 package br.com.DiaByteInnovation.domain.resource;
 
 import br.com.DiaByteInnovation.domain.entity.Paciente;
-import br.com.DiaByteInnovation.domain.entity.Usuario;
 import br.com.DiaByteInnovation.domain.service.PacienteService;
-import br.com.DiaByteInnovation.domain.service.UsuarioService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 

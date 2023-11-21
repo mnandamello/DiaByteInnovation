@@ -41,6 +41,7 @@ public class UsuarioResource implements Resource<Usuario, Long>{
     @POST
     @Override
     public Response persiste(Usuario usuario) {
+        System.out.println("entrou 2");
         usuario.setId( null );
         Usuario user = service.persiste( usuario );
 

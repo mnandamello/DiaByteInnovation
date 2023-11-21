@@ -46,8 +46,8 @@ public class HistoricoGlicemiaRepository implements Repository<HistoricoGlicemia
                 while (rs.next()) {
                     long id = rs.getLong( "id_historico_glicemia " );
                     Integer valorDestro = rs.getInt( "vl_destro" );
-                    long id_paciente = rs.getLong("id_paciente");
                     Paciente paciente = null;
+                    long id_paciente = rs.getLong("id_paciente");
                     paciente = pacienteService.findById(id_paciente);
 
                     list.add( new HistoricoGlicemia( id, valorDestro, paciente) );
