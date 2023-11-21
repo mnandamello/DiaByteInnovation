@@ -28,7 +28,6 @@ public class PacienteRepository implements Repository<Paciente, Long>{
 
     @Override
     public List<Paciente> findAll() {
-        System.out.println("entrou aqui");
         List<Paciente> list = new ArrayList<>();
         Connection con = factory.getConnection();
         ResultSet rs = null;
@@ -37,13 +36,10 @@ public class PacienteRepository implements Repository<Paciente, Long>{
         UsuarioService usuarioService = new UsuarioService();
         try {
             String sql = "SELECT *  FROM tb_paciente";
-            System.out.println("entrou aqui também");
             st = con.createStatement();
             rs = st.executeQuery( sql );
             if (rs.isBeforeFirst()) {
-                System.out.println("entrou no if");
                 while (rs.next()) {
-                    System.out.println("entrou no while");
                     long id_paciente = rs.getLong( "id_paciente" );
                     String nomeCompleto = rs.getString( "nm_completo" );
                     LocalDate dtNascimento = rs.getDate( "dt_nascimento" ).toLocalDate();
@@ -51,14 +47,13 @@ public class PacienteRepository implements Repository<Paciente, Long>{
                     Integer valorMaxGlicemia = rs.getInt( "max_glicemia" );
                     Integer valorMinGlicemia = rs.getInt( "min_glicemia" );
                     long id_usuario = rs.getLong("id_usuario");
-
-                    Usuario usuario = usuarioService.findById(id_usuario);
+                    Usuario usuario = null;
+                    usuario = usuarioService.findById(id_usuario);
 
                     list.add( new Paciente( id_paciente, nomeCompleto,dtNascimento, relacaoInsulina,  valorMaxGlicemia, valorMinGlicemia, usuario) );
                 }
             }
         } catch (SQLException e) {
-            System.out.println("caiu aqui");
             System.err.println( "Não foi possível consultar os dados!\n" + e.getMessage()+ e.getCause() );
         } finally {
             fecharObjetos( rs, st, con );

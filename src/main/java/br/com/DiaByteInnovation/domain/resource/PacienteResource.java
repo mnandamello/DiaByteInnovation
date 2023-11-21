@@ -22,7 +22,6 @@ public class PacienteResource implements Resource<Paciente, Long>{
     @GET
     @Override
     public Response findAll() {
-        System.out.println("entrou no resource do findAll paciente");
         List<Paciente> all = service.findAll();
         return Response.ok( all ).build();
     }
