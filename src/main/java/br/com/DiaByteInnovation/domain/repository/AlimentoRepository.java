@@ -37,11 +37,11 @@ public class AlimentoRepository implements Repository<Alimento, Long>{
             rs = st.executeQuery( sql );
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    long id = rs.getLong( "id_alimento" );
+                    long id_alimento = rs.getLong( "id_alimento" );
                     String nome = rs.getString( "tipo_alimento" );
                     float quantCarboGrama = rs.getFloat( "qt_carbo_grama" );
 
-                    list.add( new Alimento( id, nome, quantCarboGrama ) );
+                    list.add( new Alimento( id_alimento, nome, quantCarboGrama ) );
                 }
             }
         } catch (SQLException e) {
@@ -105,7 +105,7 @@ public class AlimentoRepository implements Repository<Alimento, Long>{
 
             if (rs.next()) {
                 final Long id = rs.getLong( 1 );
-                al.setId( id );
+                al.setId_alimento( id );
             }
 
         } catch (SQLException e) {

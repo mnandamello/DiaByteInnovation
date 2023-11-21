@@ -106,7 +106,7 @@ public class UsuarioRepository implements Repository<Usuario, Long>{
 
             if (rs.next()) {
                 final Long id = rs.getLong( 1 );
-                us.setId( id );
+                us.setId_usuario( id );
             }
 
         } catch (SQLException e) {

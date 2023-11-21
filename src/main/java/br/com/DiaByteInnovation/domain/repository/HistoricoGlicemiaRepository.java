@@ -44,13 +44,13 @@ public class HistoricoGlicemiaRepository implements Repository<HistoricoGlicemia
             rs = st.executeQuery( sql );
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    long id = rs.getLong( "id_historico_glicemia " );
+                    long id_glicemia = rs.getLong( "id_historico_glicemia" );
                     Integer valorDestro = rs.getInt( "vl_destro" );
                     Paciente paciente = null;
                     long id_paciente = rs.getLong("id_paciente");
                     paciente = pacienteService.findById(id_paciente);
 
-                    list.add( new HistoricoGlicemia( id, valorDestro, paciente) );
+                    list.add( new HistoricoGlicemia( id_glicemia, valorDestro, paciente) );
                 }
             }
         } catch (SQLException e) {
@@ -78,7 +78,7 @@ public class HistoricoGlicemiaRepository implements Repository<HistoricoGlicemia
 
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    Integer valorDestro = rs.getInt( "vl_destro " );
+                    Integer valorDestro = rs.getInt( "vl_destro" );
                     long id_paciente = rs.getLong("id_paciente");
 
                     Paciente paciente = null;
@@ -111,7 +111,7 @@ public class HistoricoGlicemiaRepository implements Repository<HistoricoGlicemia
 
             // seta os valores dos parâmetros
             ps.setInt( 1, hc.getValorDestro() );
-            ps.setLong(2, hc.getPaciente().getId());
+            ps.setLong(2, hc.getPaciente().getId_paciente());
 
 
             ps.executeUpdate();
@@ -120,7 +120,7 @@ public class HistoricoGlicemiaRepository implements Repository<HistoricoGlicemia
 
             if (rs.next()) {
                 final Long id = rs.getLong( 1 );
-                hc.setId( id );
+                hc.setId_glicemia( id );
             }
 
         } catch (SQLException e) {

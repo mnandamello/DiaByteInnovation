@@ -42,14 +42,14 @@ public class AlimentoResource implements Resource<Alimento, Long>{
     @POST
     @Override
     public Response persiste(Alimento alimento) {
-        alimento.setId( null );
+        alimento.setId_alimento( null );
         Alimento al  = service.persiste( alimento);
 
-        if (Objects.isNull( alimento.getId() ))
+        if (Objects.isNull( alimento.getId_alimento() ))
             return Response.notModified( "Não foi possível persistir: " + al).build();
 
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
-        URI uri = uriBuilder.path( String.valueOf( al.getId() ) ).build();
+        URI uri = uriBuilder.path( String.valueOf( al.getId_alimento() ) ).build();
 
         return Response.created( uri ).entity( al).build();
 

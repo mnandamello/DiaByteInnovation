@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Refeicao {
 
-    private Long id;
+    private Long id_refeicao;
 
     private float totalCarboidrato;
 

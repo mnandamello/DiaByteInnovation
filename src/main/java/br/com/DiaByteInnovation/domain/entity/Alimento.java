@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Alimento {
 
-    private Long id;
+    private Long id_alimento;
 
     private String nome;
 

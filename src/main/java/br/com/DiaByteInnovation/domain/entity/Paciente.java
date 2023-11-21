@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Paciente {
 
-    private Long id;
+    private Long id_paciente;
 
     private String nomeCompleto;
 

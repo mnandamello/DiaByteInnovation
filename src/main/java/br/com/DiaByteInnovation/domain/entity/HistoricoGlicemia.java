@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HistoricoGlicemia {
 
-    private Long id;
+    private Long id_glicemia;
 
     private Integer valorDestro; //ja vamos pegar no front o valor colocado pra fazer o grafico
 

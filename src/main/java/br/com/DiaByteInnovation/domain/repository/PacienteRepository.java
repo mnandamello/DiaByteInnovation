@@ -28,6 +28,7 @@ public class PacienteRepository implements Repository<Paciente, Long>{
 
     @Override
     public List<Paciente> findAll() {
+        System.out.println("entrou aqui");
         List<Paciente> list = new ArrayList<>();
         Connection con = factory.getConnection();
         ResultSet rs = null;
@@ -36,26 +37,29 @@ public class PacienteRepository implements Repository<Paciente, Long>{
         UsuarioService usuarioService = new UsuarioService();
         try {
             String sql = "SELECT *  FROM tb_paciente";
-
+            System.out.println("entrou aqui também");
             st = con.createStatement();
             rs = st.executeQuery( sql );
             if (rs.isBeforeFirst()) {
+                System.out.println("entrou no if");
                 while (rs.next()) {
-                    long id = rs.getLong( "id_paciente " );
+                    System.out.println("entrou no while");
+                    long id_paciente = rs.getLong( "id_paciente" );
                     String nomeCompleto = rs.getString( "nm_completo" );
                     LocalDate dtNascimento = rs.getDate( "dt_nascimento" ).toLocalDate();
                     float relacaoInsulina = rs.getFloat( "relacao_insulina_carboidrato" );
                     Integer valorMaxGlicemia = rs.getInt( "max_glicemia" );
                     Integer valorMinGlicemia = rs.getInt( "min_glicemia" );
-                    Usuario usuario = null;
                     long id_usuario = rs.getLong("id_usuario");
-                    usuario = usuarioService.findById(id_usuario);
 
-                    list.add( new Paciente( id, nomeCompleto,dtNascimento, relacaoInsulina,  valorMaxGlicemia, valorMinGlicemia, usuario) );
+                    Usuario usuario = usuarioService.findById(id_usuario);
+
+                    list.add( new Paciente( id_paciente, nomeCompleto,dtNascimento, relacaoInsulina,  valorMaxGlicemia, valorMinGlicemia, usuario) );
                 }
             }
         } catch (SQLException e) {
-            System.err.println( "Não foi possível consultar os dados!\n" + e.getMessage() );
+            System.out.println("caiu aqui");
+            System.err.println( "Não foi possível consultar os dados!\n" + e.getMessage()+ e.getCause() );
         } finally {
             fecharObjetos( rs, st, con );
         }
@@ -79,10 +83,10 @@ public class PacienteRepository implements Repository<Paciente, Long>{
 
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    String nomeCompleto = rs.getString( "nm_completo " );
+                    String nomeCompleto = rs.getString( "nm_completo" );
                     LocalDate dtNascimento = rs.getDate( "dt_nascimento" ).toLocalDate();
                     float relacaoInsulina = rs.getFloat( "relacao_insulina_carboidrato" );
-                    Integer valorMaxGlicemia = rs.getInt("max_glicemia ");
+                    Integer valorMaxGlicemia = rs.getInt("max_glicemia");
                     Integer valorMinGlicemia = rs.getInt("min_glicemia");
                     long id_usuario = rs.getLong("id_usuario"); //ta retornando nulo
                     Usuario usuario = null;
@@ -121,7 +125,7 @@ public class PacienteRepository implements Repository<Paciente, Long>{
             ps.setFloat(3, pc.getRelacaoInsulina());
             ps.setInt(4, pc.getValorMaxGlicemia());
             ps.setFloat(5, pc.getValorMinGlicemia());
-            ps.setLong(6, pc.getUsuario().getId()); //ta retornando nulo
+            ps.setLong(6, pc.getUsuario().getId_usuario()); //ta retornando nulo
 
 
             ps.executeUpdate();
@@ -130,7 +134,7 @@ public class PacienteRepository implements Repository<Paciente, Long>{
 
             if (rs.next()) {
                 final Long id = rs.getLong( 1 );
-                pc.setId( id );
+                pc.setId_paciente( id );
             }
 
         } catch (SQLException e) {

@@ -22,6 +22,7 @@ public class PacienteResource implements Resource<Paciente, Long>{
     @GET
     @Override
     public Response findAll() {
+        System.out.println("entrou no resource do findAll paciente");
         List<Paciente> all = service.findAll();
         return Response.ok( all ).build();
     }
@@ -42,14 +43,14 @@ public class PacienteResource implements Resource<Paciente, Long>{
     @POST
     @Override
     public Response persiste(Paciente paciente) {
-        paciente.setId( null );
+        paciente.setId_paciente( null );
         Paciente pc = service.persiste( paciente );
 
-        if (Objects.isNull( pc.getId() ))
+        if (Objects.isNull( pc.getId_paciente() ))
             return Response.notModified( "Não foi possível persistir: " + pc).build();
 
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
-        URI uri = uriBuilder.path( String.valueOf( pc.getId() ) ).build();
+        URI uri = uriBuilder.path( String.valueOf( pc.getId_paciente() ) ).build();
 
         return Response.created( uri ).entity( pc).build();
 

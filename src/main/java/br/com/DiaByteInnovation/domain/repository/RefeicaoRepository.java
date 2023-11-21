@@ -2,14 +2,13 @@ package br.com.DiaByteInnovation.domain.repository;
 
 import br.com.DiaByteInnovation.domain.entity.Paciente;
 import br.com.DiaByteInnovation.domain.entity.Refeicao;
-import br.com.DiaByteInnovation.domain.entity.Usuario;
-import br.com.DiaByteInnovation.domain.resource.PacienteResource;
+
 import br.com.DiaByteInnovation.domain.service.PacienteService;
-import br.com.DiaByteInnovation.domain.service.UsuarioService;
+
 import br.com.DiaByteInnovation.infra.ConnectionFactory;
 
 import java.sql.*;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -45,13 +44,13 @@ public class RefeicaoRepository implements Repository<Refeicao, Long>{
 
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    long id = rs.getLong( "id_refeicao " );
+                    long id_refeicao = rs.getLong( "id_refeicao" );
                     float totalCarboidrato = rs.getFloat( "qt_total_carbo" );
                     Integer quantidadeInsulina = rs.getInt( "qt_total_insulina" );
                     long id_paciente = rs.getLong("id_paciente");
                     Paciente paciente = pacienteService.findById(id_paciente);
 
-                    list.add( new Refeicao( id ,totalCarboidrato, quantidadeInsulina, paciente) );
+                    list.add( new Refeicao( id_refeicao ,totalCarboidrato, quantidadeInsulina, paciente) );
                 }
             }
         } catch (SQLException e) {
@@ -116,7 +115,7 @@ public class RefeicaoRepository implements Repository<Refeicao, Long>{
             // seta os valores dos parâmetros
             ps.setFloat( 1, rf.getTotalCarboidrato() );
             ps.setInt(2, rf.getQuantidadeInsulina());
-            ps.setLong(3, rf.getPaciente().getId());
+            ps.setLong(3, rf.getPaciente().getId_paciente());
 
             ps.executeUpdate();
 
@@ -124,7 +123,7 @@ public class RefeicaoRepository implements Repository<Refeicao, Long>{
 
             if (rs.next()) {
                 final Long id = rs.getLong( 1 );
-                rf.setId( id );
+                rf.setId_refeicao( id );
             }
 
         } catch (SQLException e) {

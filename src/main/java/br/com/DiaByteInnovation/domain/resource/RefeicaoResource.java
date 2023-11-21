@@ -22,6 +22,7 @@ public class RefeicaoResource  implements Resource<Refeicao, Long>{
     @GET
     @Override
     public Response findAll() {
+        System.out.println("ola");
         List<Refeicao> all = service.findAll();
         return Response.ok( all ).build();
     }
@@ -49,14 +50,14 @@ public class RefeicaoResource  implements Resource<Refeicao, Long>{
     @POST
     @Override
     public Response persiste(Refeicao refeicao) {
-        refeicao.setId( null );
+        refeicao.setId_refeicao( null );
         Refeicao rf = service.persiste( refeicao );
 
-        if (Objects.isNull( rf.getId() ))
+        if (Objects.isNull( rf.getId_refeicao() ))
             return Response.notModified( "Não foi possível persistir: " + rf).build();
 
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
-        URI uri = uriBuilder.path( String.valueOf( rf.getId() ) ).build();
+        URI uri = uriBuilder.path( String.valueOf( rf.getId_refeicao() ) ).build();
 
         return Response.created( uri ).entity( rf).build();
 
