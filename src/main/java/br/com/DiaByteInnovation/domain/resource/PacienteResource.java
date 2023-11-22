@@ -34,7 +34,7 @@ public class PacienteResource implements Resource<Paciente, Long>{
 
         Paciente paciente = service.findById( id );
 
-        if (Objects.isNull( paciente )) throw new NotFoundException( "Não temos artista cadastrado com o id: " + id );
+        if (Objects.isNull( paciente )) throw new NotFoundException( "Não temos um paciente cadastrado com o id: " + id );
 
         return Response.ok( paciente ).build();
     }
@@ -42,14 +42,14 @@ public class PacienteResource implements Resource<Paciente, Long>{
     @POST
     @Override
     public Response persiste(Paciente paciente) {
-        paciente.setId_paciente( null );
+        paciente.setId( null );
         Paciente pc = service.persiste( paciente );
 
-        if (Objects.isNull( pc.getId_paciente() ))
+        if (Objects.isNull( pc.getId() ))
             return Response.notModified( "Não foi possível persistir: " + pc).build();
 
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
-        URI uri = uriBuilder.path( String.valueOf( pc.getId_paciente() ) ).build();
+        URI uri = uriBuilder.path( String.valueOf( pc.getId() ) ).build();
 
         return Response.created( uri ).entity( pc).build();
 

@@ -115,7 +115,7 @@ public class RefeicaoRepository implements Repository<Refeicao, Long>{
             // seta os valores dos parâmetros
             ps.setFloat( 1, rf.getTotalCarboidrato() );
             ps.setInt(2, rf.getQuantidadeInsulina());
-            ps.setLong(3, rf.getPaciente().getId_paciente());
+            ps.setLong(3, rf.getPaciente().getId());
 
             ps.executeUpdate();
 
@@ -135,8 +135,10 @@ public class RefeicaoRepository implements Repository<Refeicao, Long>{
     }
 
 
-   /*public List<Refeicao> findRefeicoesByPaciente(Long idPaciente) {
+    public List<Refeicao> findByPaciente(Long id) {
         List<Refeicao> refeicoes = new ArrayList<>();
+
+        var sql = "SELECT *  FROM tb_refeicao  where id_paciente = ?";
         Connection con = factory.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -144,36 +146,32 @@ public class RefeicaoRepository implements Repository<Refeicao, Long>{
         PacienteService pacienteService = new PacienteService();
 
         try {
-            String sql = "SELECT * FROM tb_refeicao WHERE id_paciente = ?";
-            ps = con.prepareStatement(sql);
-            ps.setLong(1, idPaciente);
+            ps = con.prepareStatement( sql );
+            ps.setLong( 1, id );
             rs = ps.executeQuery();
 
-            if(rs.isBeforeFirst()){
+            if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    long id = rs.getLong("id_refeicao");
-                    float totalCarboidrato = rs.getFloat("total_carboidrato");
-                    Integer quantidadeInsulina = rs.getInt("quantidade_insulina");
+                    long id_refeicao = rs.getLong( "id_refeicao" );
+                    float totalCarboidrato = rs.getFloat( "qt_total_carbo" );
+                    Integer quantidadeInsulina = rs.getInt( "qt_total_insulina" );
                     long id_paciente = rs.getLong("id_paciente");
 
                     Paciente paciente = null;
                     paciente = pacienteService.findById(id_paciente);
 
-                    Refeicao refeicao = new Refeicao(id, totalCarboidrato, quantidadeInsulina, paciente);
-                    refeicoes.add(refeicao);
+
+                    refeicoes.add(new Refeicao( id_refeicao, totalCarboidrato, quantidadeInsulina, paciente));
                 }
-
-            }else {
-                System.out.println( "Dados não encontrados com o id: " + idPaciente );
+            } else {
+                System.out.println( "Refeições não encontradas para o paciente de id " + id );
             }
-
         } catch (SQLException e) {
-            System.err.println("Erro ao consultar refeições por paciente: " + e.getMessage());
+            System.err.println( "Não foi possível consultar os dados!\n" + e.getMessage() );
         } finally {
-            fecharObjetos(rs, ps, con);
+            fecharObjetos( rs, ps, con );
         }
-
         return refeicoes;
-    }*/
+    }
 
 }

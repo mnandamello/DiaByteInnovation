@@ -16,6 +16,8 @@ public class Usuario  {
 
     private String senha;
 
+    private Paciente paciente;
+
     /* METODOS
     * persiste (POST) - OK
     * findById - OK

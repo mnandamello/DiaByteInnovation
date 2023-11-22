@@ -21,7 +21,6 @@ public class UsuarioResource implements Resource<Usuario, Long>{
     @GET
     @Override
     public Response findAll() {
-        System.out.println("entrou no findAll do usuario");
         List<Usuario> all = service.findAll();
         return Response.ok( all ).build();
     }
@@ -33,9 +32,19 @@ public class UsuarioResource implements Resource<Usuario, Long>{
     public Response findById(@PathParam("id") Long id) {
 
         Usuario usuario = service.findById( id );
-        if (Objects.isNull( usuario )) throw new NotFoundException( "Não temos artista cadastrado com o id: " + id );
+        if (Objects.isNull( usuario )) throw new NotFoundException( "Não temos usuario cadastrado com o id: " + id );
 
         return Response.ok( usuario ).build();
+    }
+
+    @Path("/login")
+    @POST
+    public Response login (Usuario usuario) {
+
+        Usuario usuarioAutenticado = service.login(usuario);
+        if (Objects.isNull( usuario )) throw new NotFoundException( "User ou senha incorreta");
+
+        return Response.ok( usuarioAutenticado ).build();
     }
 
 

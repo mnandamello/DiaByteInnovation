@@ -1,7 +1,6 @@
 package br.com.DiaByteInnovation.domain.repository;
 
 import br.com.DiaByteInnovation.domain.entity.Paciente;
-import br.com.DiaByteInnovation.domain.entity.Usuario;
 import br.com.DiaByteInnovation.domain.service.UsuarioService;
 import br.com.DiaByteInnovation.infra.ConnectionFactory;
 
@@ -46,11 +45,8 @@ public class PacienteRepository implements Repository<Paciente, Long>{
                     float relacaoInsulina = rs.getFloat( "relacao_insulina_carboidrato" );
                     Integer valorMaxGlicemia = rs.getInt( "max_glicemia" );
                     Integer valorMinGlicemia = rs.getInt( "min_glicemia" );
-                    long id_usuario = rs.getLong("id_usuario");
-                    Usuario usuario = null;
-                    usuario = usuarioService.findById(id_usuario);
 
-                    list.add( new Paciente( id_paciente, nomeCompleto,dtNascimento, relacaoInsulina,  valorMaxGlicemia, valorMinGlicemia, usuario) );
+                    list.add( new Paciente( id_paciente, nomeCompleto,dtNascimento, relacaoInsulina,  valorMaxGlicemia, valorMinGlicemia) );
                 }
             }
         } catch (SQLException e) {
@@ -83,13 +79,8 @@ public class PacienteRepository implements Repository<Paciente, Long>{
                     float relacaoInsulina = rs.getFloat( "relacao_insulina_carboidrato" );
                     Integer valorMaxGlicemia = rs.getInt("max_glicemia");
                     Integer valorMinGlicemia = rs.getInt("min_glicemia");
-                    long id_usuario = rs.getLong("id_usuario"); //ta retornando nulo
-                    Usuario usuario = null;
 
-
-                    usuario = usuarioService.findById( id_usuario );
-
-                    pc = new Paciente( id, nomeCompleto, dtNascimento, relacaoInsulina, valorMaxGlicemia, valorMinGlicemia, usuario);
+                    pc = new Paciente( id, nomeCompleto, dtNascimento, relacaoInsulina, valorMaxGlicemia, valorMinGlicemia);
                 }
             } else {
                 System.out.println( "Dados não encontrados com o id: " + id );
@@ -104,8 +95,9 @@ public class PacienteRepository implements Repository<Paciente, Long>{
 
     @Override
     public Paciente persiste(Paciente pc) {
-        var sql = "INSERT INTO tb_paciente  (id_paciente , nm_completo, dt_nascimento, relacao_insulina_carboidrato, max_glicemia, min_glicemia, id_usuario) VALUES (seq_paciente.nextval,?, ?, ?, ?, ?, ?)";
+        var sql = "INSERT INTO tb_paciente  (id_paciente , nm_completo, dt_nascimento, relacao_insulina_carboidrato, max_glicemia, min_glicemia) VALUES (seq_paciente.nextval,?, ?, ?, ?, ?)";
 
+        UsuarioService usuarioService = new UsuarioService();
 
         Connection con = factory.getConnection();
         PreparedStatement ps = null;
@@ -120,8 +112,6 @@ public class PacienteRepository implements Repository<Paciente, Long>{
             ps.setFloat(3, pc.getRelacaoInsulina());
             ps.setInt(4, pc.getValorMaxGlicemia());
             ps.setFloat(5, pc.getValorMinGlicemia());
-            ps.setLong(6, pc.getUsuario().getId_usuario()); //ta retornando nulo
-
 
             ps.executeUpdate();
 
@@ -129,7 +119,7 @@ public class PacienteRepository implements Repository<Paciente, Long>{
 
             if (rs.next()) {
                 final Long id = rs.getLong( 1 );
-                pc.setId_paciente( id );
+                pc.setId( id );
             }
 
         } catch (SQLException e) {

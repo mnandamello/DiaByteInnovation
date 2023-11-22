@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 
 @Data
@@ -13,24 +12,17 @@ import java.util.Date;
 @NoArgsConstructor
 public class Paciente {
 
-    private Long id_paciente;
+    private Long id;
 
     private String nomeCompleto;
 
     private LocalDate dtNascimento;
 
-    private float relacaoInsulina;
+    private float relacaoInsulina;//COLOCAR EM OUTRA CLASSE
 
     private Integer valorMaxGlicemia;
 
     private Integer valorMinGlicemia;
 
-    private Usuario usuario; //fazer findById
-
-
-    /* METODOS
-    * persiste (POST)
-    * findById (GET)
-    * */
-
+    //private Usuario usuario;
 }

@@ -22,7 +22,6 @@ public class RefeicaoResource  implements Resource<Refeicao, Long>{
     @GET
     @Override
     public Response findAll() {
-        System.out.println("ola");
         List<Refeicao> all = service.findAll();
         return Response.ok( all ).build();
     }
@@ -35,17 +34,17 @@ public class RefeicaoResource  implements Resource<Refeicao, Long>{
 
         Refeicao refeicao = service.findById( id );
 
-        if (Objects.isNull( refeicao )) throw new NotFoundException( "Não temos artista cadastrado com o id: " + id );
+        if (Objects.isNull( refeicao )) throw new NotFoundException( "Não temos uam refeição com o id: " + id );
 
         return Response.ok( refeicao ).build();
     }
 
-    /*@GET //ver se esta certo
-    @Path("/{idPaciente}")
-    public Response findRefeicoesByPaciente(@PathParam("idPaciente") Long idPaciente)  {
-        List<Refeicao> refeicoes = service.findRefeicoesByPaciente(idPaciente);
-        return Response.ok( refeicoes ).build();
-    }*/
+    @Path("/historico/{id}")
+    @GET
+    public Response findByPaciente(@PathParam("id")Long id) {
+        List<Refeicao> all = service.findByPaciente(id);
+        return Response.ok( all ).build();
+    }
 
     @POST
     @Override

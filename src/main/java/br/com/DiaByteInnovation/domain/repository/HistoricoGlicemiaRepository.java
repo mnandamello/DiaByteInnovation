@@ -2,14 +2,10 @@ package br.com.DiaByteInnovation.domain.repository;
 
 import br.com.DiaByteInnovation.domain.entity.HistoricoGlicemia;
 import br.com.DiaByteInnovation.domain.entity.Paciente;
-import br.com.DiaByteInnovation.domain.entity.Usuario;
-import br.com.DiaByteInnovation.domain.service.HistoricoGlicemiaService;
 import br.com.DiaByteInnovation.domain.service.PacienteService;
-import br.com.DiaByteInnovation.domain.service.UsuarioService;
 import br.com.DiaByteInnovation.infra.ConnectionFactory;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -111,7 +107,7 @@ public class HistoricoGlicemiaRepository implements Repository<HistoricoGlicemia
 
             // seta os valores dos parâmetros
             ps.setInt( 1, hc.getValorDestro() );
-            ps.setLong(2, hc.getPaciente().getId_paciente());
+            ps.setLong(2, hc.getPaciente().getId());
 
 
             ps.executeUpdate();

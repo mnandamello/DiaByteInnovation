@@ -1,5 +1,7 @@
 package br.com.DiaByteInnovation.domain.repository;
 
+import br.com.DiaByteInnovation.domain.entity.Paciente;
+import br.com.DiaByteInnovation.domain.service.PacienteService;
 import br.com.DiaByteInnovation.infra.ConnectionFactory;
 import br.com.DiaByteInnovation.domain.entity.Usuario;
 
@@ -30,6 +32,9 @@ public class UsuarioRepository implements Repository<Usuario, Long>{
         Connection con = factory.getConnection();
         ResultSet rs = null;
         Statement st = null;
+
+        PacienteService pacienteService = new PacienteService();
+
         try {
             String sql = "SELECT *  FROM tb_usuario";
 
@@ -40,8 +45,10 @@ public class UsuarioRepository implements Repository<Usuario, Long>{
                     long id = rs.getLong( "id_usuario" );
                     String email = rs.getString( "email" );
                     String senha = rs.getString( "senha" );
+                    Long id_paciente = rs.getLong("id_paciente");
+                    Paciente paciente = pacienteService.findById(id_paciente);
 
-                    list.add( new Usuario( id, email, senha ) );
+                    list.add( new Usuario( id, email, senha, paciente ) );
                 }
             }
         } catch (SQLException e) {
@@ -59,6 +66,9 @@ public class UsuarioRepository implements Repository<Usuario, Long>{
         Connection con = factory.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
+
+        PacienteService pacienteService = new PacienteService();
+
         try {
             ps = con.prepareStatement( sql );
             ps.setLong( 1, id );
@@ -68,8 +78,10 @@ public class UsuarioRepository implements Repository<Usuario, Long>{
                 while (rs.next()) {
                     String email = rs.getString( "email" );
                     String senha = rs.getString( "senha" );
+                    Long id_paciente = rs.getLong("id_paciente");
+                    Paciente paciente = pacienteService.findById(id_paciente);
 
-                    user = new Usuario( id, email, senha );
+                    user = new Usuario( id, email, senha, paciente );
                 }
             } else {
                 System.out.println( "Dados não encontrados com o id: " + id );
@@ -82,10 +94,44 @@ public class UsuarioRepository implements Repository<Usuario, Long>{
         return user;
     }
 
+    public Usuario findByEmail(String email) {
+        Usuario user = null;
+        var sql = "SELECT *  FROM tb_usuario  where email = ?";
+        Connection con = factory.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        PacienteService pacienteService = new PacienteService();
+
+        try {
+            ps = con.prepareStatement( sql );
+            ps.setString( 1, email );
+            rs = ps.executeQuery();
+
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    long id = rs.getLong( "id_usuario" );
+                    String senha = rs.getString( "senha" );
+                    Long id_paciente = rs.getLong("id_paciente");
+                    Paciente paciente = pacienteService.findById(id_paciente);
+
+                    user = new Usuario( id, email, senha, paciente );
+                }
+            } else {
+                System.out.println( "Dados não encontrados com esse email: " + email );
+            }
+        } catch (SQLException e) {
+            System.err.println( "Não foi possível consultar os dados!\n" + e.getMessage() );
+        } finally {
+            fecharObjetos( rs, ps, con );
+        }
+        return user;
+    }
+
     @Override
     public Usuario persiste(Usuario us) {
         System.out.println("entrou 1");
-        var sql = "INSERT INTO tb_usuario  (id_usuario, email, senha) VALUES (seq_usuario.nextval,?, ? )";
+        var sql = "INSERT INTO tb_usuario  (id_usuario, email, senha, id_paciente) VALUES (seq_usuario.nextval,?, ?, ?)";
 
 
         Connection con = factory.getConnection();
@@ -98,7 +144,7 @@ public class UsuarioRepository implements Repository<Usuario, Long>{
             // seta os valores dos parâmetros
             ps.setString( 1, us.getEmail() );
             ps.setString( 2, us.getSenha() );
-
+            ps.setLong(3, us.getPaciente().getId());
 
             ps.executeUpdate();
 
