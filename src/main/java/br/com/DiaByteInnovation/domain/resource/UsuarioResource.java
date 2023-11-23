@@ -42,7 +42,7 @@ public class UsuarioResource implements Resource<Usuario, Long>{
     public Response login (Usuario usuario) {
 
         Usuario usuarioAutenticado = service.login(usuario);
-        if (Objects.isNull( usuario )) throw new NotFoundException( "User ou senha incorreta");
+        if (Objects.isNull( usuario )) throw new NotFoundException( "Email ou senha incorreta");
 
         return Response.ok( usuarioAutenticado ).build();
     }

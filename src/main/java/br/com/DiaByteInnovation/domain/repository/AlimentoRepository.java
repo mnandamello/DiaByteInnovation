@@ -1,7 +1,6 @@
 package br.com.DiaByteInnovation.domain.repository;
 
 import br.com.DiaByteInnovation.domain.entity.Alimento;
-import br.com.DiaByteInnovation.domain.entity.Usuario;
 import br.com.DiaByteInnovation.infra.ConnectionFactory;
 
 import java.sql.*;

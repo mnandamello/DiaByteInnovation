@@ -12,12 +12,8 @@ public class HistoricoGlicemia {
 
     private Long id_glicemia;
 
-    private Integer valorDestro; //ja vamos pegar no front o valor colocado pra fazer o grafico
+    private Integer valorDestro;
 
     private Paciente paciente;
-
-    /* METODOS
-    *PERSISTE (POST)
-    * */
 
 }

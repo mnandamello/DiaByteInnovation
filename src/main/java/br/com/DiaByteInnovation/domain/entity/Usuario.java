@@ -18,9 +18,4 @@ public class Usuario  {
 
     private Paciente paciente;
 
-    /* METODOS
-    * persiste (POST) - OK
-    * findById - OK
-    * */
-
 }
