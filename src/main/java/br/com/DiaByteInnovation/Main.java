@@ -10,7 +10,7 @@ import br.com.DiaByteInnovation.infra.configuration.exception.ExceptionHandling;
 import java.io.IOException;
 import java.net.URI;
 
-public class    Main {
+public class Main {
 
     public static final String BASE_URI = "http://localhost";
 

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HistoricoGlicemia {
 
-    private Long id_glicemia;
+    private Long idGlicemia;
 
     private Integer valorDestro;
 

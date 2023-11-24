@@ -15,7 +15,4 @@ public class Alimento {
 
     private float quantCarboGrama;
 
-    /* METODOS
-     * FindAll (GET)
-     * */
 }

@@ -30,7 +30,6 @@ public class RefeicaoService implements Service<Refeicao, Long>{
         return repo.persiste( refeicao );
     }
 
-     //ver se esta certo
     public List<Refeicao> findByPaciente(Long id) {
         return repo.findByPaciente(id);
     }

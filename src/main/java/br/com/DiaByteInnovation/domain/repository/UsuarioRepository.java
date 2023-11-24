@@ -130,7 +130,6 @@ public class UsuarioRepository implements Repository<Usuario, Long>{
 
     @Override
     public Usuario persiste(Usuario us) {
-        System.out.println("entrou 1");
         var sql = "INSERT INTO tb_usuario  (id_usuario, email, senha, id_paciente) VALUES (seq_usuario.nextval,?, ?, ?)";
 
 
@@ -152,7 +151,7 @@ public class UsuarioRepository implements Repository<Usuario, Long>{
 
             if (rs.next()) {
                 final Long id = rs.getLong( 1 );
-                us.setId_usuario( id );
+                us.setIdUsuario( id );
             }
 
         } catch (SQLException e) {

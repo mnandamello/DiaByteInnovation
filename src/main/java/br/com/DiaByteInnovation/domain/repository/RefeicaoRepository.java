@@ -44,13 +44,13 @@ public class RefeicaoRepository implements Repository<Refeicao, Long>{
 
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    long id_refeicao = rs.getLong( "id_refeicao" );
+                    long idRefeicao = rs.getLong( "id_refeicao" );
                     float totalCarboidrato = rs.getFloat( "qt_total_carbo" );
                     Integer quantidadeInsulina = rs.getInt( "qt_total_insulina" );
                     long id_paciente = rs.getLong("id_paciente");
                     Paciente paciente = pacienteService.findById(id_paciente);
 
-                    list.add( new Refeicao( id_refeicao ,totalCarboidrato, quantidadeInsulina, paciente) );
+                    list.add( new Refeicao( idRefeicao ,totalCarboidrato, quantidadeInsulina, paciente) );
                 }
             }
         } catch (SQLException e) {
@@ -123,7 +123,7 @@ public class RefeicaoRepository implements Repository<Refeicao, Long>{
 
             if (rs.next()) {
                 final Long id = rs.getLong( 1 );
-                rf.setId_refeicao( id );
+                rf.setIdRefeicao( id );
             }
 
         } catch (SQLException e) {
@@ -152,7 +152,7 @@ public class RefeicaoRepository implements Repository<Refeicao, Long>{
 
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    long id_refeicao = rs.getLong( "id_refeicao" );
+                    long idRefeicao = rs.getLong( "id_refeicao" );
                     float totalCarboidrato = rs.getFloat( "qt_total_carbo" );
                     Integer quantidadeInsulina = rs.getInt( "qt_total_insulina" );
                     long id_paciente = rs.getLong("id_paciente");
@@ -161,7 +161,7 @@ public class RefeicaoRepository implements Repository<Refeicao, Long>{
                     paciente = pacienteService.findById(id_paciente);
 
 
-                    refeicoes.add(new Refeicao( id_refeicao, totalCarboidrato, quantidadeInsulina, paciente));
+                    refeicoes.add(new Refeicao( idRefeicao, totalCarboidrato, quantidadeInsulina, paciente));
                 }
             } else {
                 System.out.println( "Refeições não encontradas para o paciente de id " + id );

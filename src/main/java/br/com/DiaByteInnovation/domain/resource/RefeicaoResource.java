@@ -49,14 +49,14 @@ public class RefeicaoResource  implements Resource<Refeicao, Long>{
     @POST
     @Override
     public Response persiste(Refeicao refeicao) {
-        refeicao.setId_refeicao( null );
+        refeicao.setIdRefeicao( null );
         Refeicao rf = service.persiste( refeicao );
 
-        if (Objects.isNull( rf.getId_refeicao() ))
+        if (Objects.isNull( rf.getIdRefeicao() ))
             return Response.notModified( "Não foi possível persistir: " + rf).build();
 
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
-        URI uri = uriBuilder.path( String.valueOf( rf.getId_refeicao() ) ).build();
+        URI uri = uriBuilder.path( String.valueOf( rf.getIdRefeicao() ) ).build();
 
         return Response.created( uri ).entity( rf).build();
 

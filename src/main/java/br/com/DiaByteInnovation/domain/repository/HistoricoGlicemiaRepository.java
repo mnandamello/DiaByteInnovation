@@ -40,13 +40,13 @@ public class HistoricoGlicemiaRepository implements Repository<HistoricoGlicemia
             rs = st.executeQuery( sql );
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    long id_glicemia = rs.getLong( "id_historico_glicemia" );
+                    long idGlicemia = rs.getLong( "id_historico_glicemia" );
                     Integer valorDestro = rs.getInt( "vl_destro" );
                     Paciente paciente = null;
                     long id_paciente = rs.getLong("id_paciente");
                     paciente = pacienteService.findById(id_paciente);
 
-                    list.add( new HistoricoGlicemia( id_glicemia, valorDestro, paciente) );
+                    list.add( new HistoricoGlicemia( idGlicemia, valorDestro, paciente) );
                 }
             }
         } catch (SQLException e) {
@@ -116,7 +116,7 @@ public class HistoricoGlicemiaRepository implements Repository<HistoricoGlicemia
 
             if (rs.next()) {
                 final Long id = rs.getLong( 1 );
-                hc.setId_glicemia( id );
+                hc.setIdGlicemia( id );
             }
 
         } catch (SQLException e) {

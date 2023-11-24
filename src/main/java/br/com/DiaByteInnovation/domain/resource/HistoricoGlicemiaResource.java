@@ -41,14 +41,14 @@ public class HistoricoGlicemiaResource implements Resource<HistoricoGlicemia, Lo
     @POST
     @Override
     public Response persiste(HistoricoGlicemia historicoGlicemia) {
-        historicoGlicemia.setId_glicemia( null );
+        historicoGlicemia.setIdGlicemia( null );
         HistoricoGlicemia hc = service.persiste( historicoGlicemia );
 
-        if (Objects.isNull( hc.getId_glicemia() ))
+        if (Objects.isNull( hc.getIdGlicemia() ))
             return Response.notModified( "Não foi possível persistir: " + hc).build();
 
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
-        URI uri = uriBuilder.path( String.valueOf( hc.getId_glicemia() ) ).build();
+        URI uri = uriBuilder.path( String.valueOf( hc.getIdGlicemia() ) ).build();
 
         return Response.created( uri ).entity( hc).build();
 

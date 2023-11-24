@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Usuario  {
 
-    private Long id_usuario;
+    private Long idUsuario;
 
     private String email;
 

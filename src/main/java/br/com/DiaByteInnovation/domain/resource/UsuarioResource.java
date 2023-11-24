@@ -51,15 +51,14 @@ public class UsuarioResource implements Resource<Usuario, Long>{
     @POST
     @Override
     public Response persiste(Usuario usuario) {
-        System.out.println("entrou 2");
-        usuario.setId_usuario( null );
+        usuario.setIdUsuario( null );
         Usuario user = service.persiste( usuario );
 
-        if (Objects.isNull( user.getId_usuario() ))
+        if (Objects.isNull( user.getIdUsuario() ))
             return Response.notModified( "Não foi possível persistir: " + user).build();
 
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
-        URI uri = uriBuilder.path( String.valueOf( user.getId_usuario() ) ).build();
+        URI uri = uriBuilder.path( String.valueOf( user.getIdUsuario() ) ).build();
 
         return Response.created( uri ).entity( user).build();
 

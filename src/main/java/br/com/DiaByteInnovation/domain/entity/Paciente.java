@@ -18,11 +18,11 @@ public class Paciente {
 
     private LocalDate dtNascimento;
 
-    private float relacaoInsulina;//COLOCAR EM OUTRA CLASSE
+    private float relacaoInsulina;
 
     private Integer valorMaxGlicemia;
 
     private Integer valorMinGlicemia;
 
-    //private Usuario usuario;
+
 }
